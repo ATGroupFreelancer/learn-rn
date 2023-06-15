@@ -1,18 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import SignInForm from './src/SignInForm';
+import {useState} from "react";
+import SignUpForm from "./src/SignUpForm";
 
 export default function App() {
+  const [showLogin, setShowLogin] = useState(true);
+
+  const toggleComponent = () => {
+    setShowLogin(!showLogin);
+  }
+
   return (
-    <SignInForm></SignInForm>
+      <View style={styles.container}>
+        {!showLogin ? (<SignUpForm toggleComponent={toggleComponent}/>) : (
+            <SignInForm toggleComponent={toggleComponent}/>)}
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
+
