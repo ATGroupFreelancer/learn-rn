@@ -1,26 +1,36 @@
 import {StyleSheet, View} from 'react-native';
-import SignInForm from './src/SignInForm';
+import SignInScreen from './src/screens/SignInScreen';
 import {useState} from "react";
-import SignUpForm from "./src/SignUpForm";
+import SignUpScreen from "./src/screens/SignUpScreen";
+import HomeScreen from "./src/screens/HomeScreen";
 
 export default function App() {
-  const [showLogin, setShowLogin] = useState(true);
+    const [showLogin, setShowLogin] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const toggleComponent = () => {
-    setShowLogin(!showLogin);
-  }
+    const onSignup = () => {
+        setShowLogin(!showLogin);
+    }
 
-  return (
-      <View style={styles.container}>
-        {!showLogin ? (<SignUpForm toggleComponent={toggleComponent}/>) : (
-            <SignInForm toggleComponent={toggleComponent}/>)}
-      </View>
-  );
+    const handleLogin = (loginSuccessful) => {
+        setIsLoggedIn(loginSuccessful);
+    };
+
+    const handleSignup = (signupSuccessful) => {
+        setIsLoggedIn(signupSuccessful);
+    };
+
+    return isLoggedIn ? (<HomeScreen/>) : (
+        <View style={styles.container}>
+            {!showLogin ? (<SignUpScreen onLogin={handleSignup} onSignup={onSignup}/>) : (
+                <SignInScreen onLogin={handleLogin} onSignup={onSignup}/>)}
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+    container: {
+        flex: 1,
+    },
 });
 

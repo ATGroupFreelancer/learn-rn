@@ -1,10 +1,10 @@
 import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {AntDesign, FontAwesome5, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
 import {useState} from "react";
-import ModalSuccess from "./ModalSuccess";
-import styles from "./styles";
+import ModalSuccess from "../components/ModalSuccess";
+import styles from "../utils/styles";
 
-const SignInForm = ({toggleComponent}) => {
+const SignInScreen = ({onLogin, onSignup}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showModal, setShowModal] = useState(false)
@@ -19,7 +19,11 @@ const SignInForm = ({toggleComponent}) => {
 
     const handleLogin = () => {
         console.log('onpress sign in')
-        setShowModal(true)
+        setShowModal(true);
+        setTimeout(() => {
+            setShowModal(false);
+            onLogin(true);
+        }, 1000);
     }
 
     const handleCloseModal = () => {
@@ -27,21 +31,21 @@ const SignInForm = ({toggleComponent}) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.loginContainer}>
             <View style={styles.formImage}>
-                <Image style={styles.image}
-                       source={require('./assets/Image-background.png')}></Image>
+                <Image style={styles.imageLogin}
+                       source={require('../assets/Image-background.png')}></Image>
             </View>
             <View style={styles.formLogin}>
-                <Text style={styles.title_login}>Hello!</Text>
-                <Text style={styles.sub_title_login}>Welcome back</Text>
-                <Text style={styles.label}>Email</Text>
+                <Text style={styles.titleLogin}>Hello!</Text>
+                <Text style={styles.subTitleLogin}>Welcome back</Text>
+                <Text style={styles.labelInput}>Email</Text>
                 <View style={styles.inputContainer}>
                     <MaterialCommunityIcons name="email-outline" style={styles.iconInTextInput}/>
                     <TextInput value={email} onChangeText={text => setEmail(text)} placeholder='Enter email'
                                style={styles.input}></TextInput>
                 </View>
-                <Text style={styles.label}>Password</Text>
+                <Text style={styles.labelInput}>Password</Text>
                 <View style={styles.inputContainer}>
                     <AntDesign name="lock1" style={styles.iconInTextInput}/>
                     <TextInput secureTextEntry={true} value={password} onChangeText={text => setPassword(text)}
@@ -53,9 +57,7 @@ const SignInForm = ({toggleComponent}) => {
                 }} style={styles.buttonForgotPassword}>
                     <Text style={styles.textForgotPassword}>Forgot password?</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={
-                    handleLogin
-                } style={styles.buttonLogin}>
+                <TouchableOpacity onPress={handleLogin} style={styles.buttonLogin}>
                     <Text style={styles.textButtonLogin}>Sign in</Text>
                 </TouchableOpacity>
                 <Text style={styles.orContinueWith}>OR COUNTINUE WITH</Text>
@@ -67,7 +69,7 @@ const SignInForm = ({toggleComponent}) => {
                 <View style={styles.other}>
                     <Text style={styles.textDontHaveAnAccount}>Don't have an account?</Text>
                     <TouchableOpacity onPress={() => {
-                        toggleComponent()
+                        onSignup()
                     }} style={styles.buttonSignUp}>
                         <Text style={styles.textButtonSignUp}>Sign up</Text>
                     </TouchableOpacity>
@@ -77,4 +79,4 @@ const SignInForm = ({toggleComponent}) => {
         </View>
     );
 }
-export default SignInForm;
+export default SignInScreen;
