@@ -3,10 +3,12 @@ import SignInScreen from './src/screens/SignInScreen';
 import {useState} from "react";
 import SignUpScreen from "./src/screens/SignUpScreen";
 import HomeScreen from "./src/screens/HomeScreen";
+import HomeScreenFull from "./src/screens/HomeScreenFull";
 
 export default function App() {
     const [showLogin, setShowLogin] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isSignedUp, setIsSignedUp] = useState(false);
 
     const onSignup = () => {
         setShowLogin(!showLogin);
@@ -17,10 +19,10 @@ export default function App() {
     };
 
     const handleSignup = (signupSuccessful) => {
-        setIsLoggedIn(signupSuccessful);
+        setIsSignedUp(signupSuccessful);
     };
 
-    return isLoggedIn ? (<HomeScreen/>) : (
+    return isLoggedIn ? (<HomeScreen/>) : isSignedUp ? (<HomeScreenFull/>) : (
         <View style={styles.container}>
             {!showLogin ? (<SignUpScreen onLogin={handleSignup} onSignup={onSignup}/>) : (
                 <SignInScreen onLogin={handleLogin} onSignup={onSignup}/>)}

@@ -1,4 +1,4 @@
-import {FlatList, Text, View, Image, StyleSheet} from "react-native";
+import {FlatList, Image, StyleSheet, Text, View} from "react-native";
 import React from "react";
 
 const History = () => {

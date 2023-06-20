@@ -1,22 +1,25 @@
 import {FlatList, View} from "react-native";
 import styles from "../utils/styles";
-import React from "react";
-import Header from "../components/Header";
+import React, {useState} from "react";
 import History from "../components/History";
 import ProductList from "../components/ProductList";
+import HeaderFull from "../components/HeaderFull";
 
-const HomeScreen = () => {
+const HomeScreenFull = () => {
+    const [avatar, setAvatar] = useState('')
+
     const data = [
-        {id: '1', type: 'header', content: 'This is a text content'},
-        {id: '2', type: 'history', content: 'https://example.com/image.jpg'},
+        {id: '1', type: 'userInfo', data: {name: 'Olivia Blue', age: 30, avatar: require('../assets/avatar4blue.png')}},
+        {id: '2', type: 'assert', content: 'https://example.com/image.jpg'},
         {id: '3', type: 'product', content: './assets/Image-background.png'},
     ];
 
     const renderItem = ({item}) => {
-        if (item.type === 'header') {
+        if (item.type === 'userInfo') {
+            setAvatar(item.data.avatar)
             return (
                 <View>
-                    <Header>{item.content}</Header>
+                    <HeaderFull avatar={avatar}/>
                 </View>
             );
         } else if (item.type === 'history') {
@@ -46,4 +49,4 @@ const HomeScreen = () => {
     )
 }
 
-export default HomeScreen
+export default HomeScreenFull

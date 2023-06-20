@@ -1,4 +1,4 @@
-import {Modal, TouchableOpacity, Text, View} from "react-native";
+import {Modal, Text, TouchableOpacity, View} from "react-native";
 import React from "react";
 import styles from "../utils/styles";
 
@@ -10,7 +10,7 @@ const ModalSuccess = (props) => {
                 <View style={styles.modalDetail}>
                     <Text style={styles.modalTitle}>Success</Text>
                     {arraySuccess.map((item, index) => {
-                        return <Text key={index} style={styles.modalSubTitle}>{item.title} : {item.value}</Text>
+                        return <Text key={item.title} style={styles.modalSubTitle}>{item.title} : {item.value}</Text>
                     })}
                     <TouchableOpacity onPress={handleCloseModal} style={styles.modalButton}>
                         <Text style={styles.modalTextButton}>OK</Text>
