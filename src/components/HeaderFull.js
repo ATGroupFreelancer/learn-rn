@@ -1,10 +1,11 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
-const Header = () => {
+const HeaderFull = (props) => {
+    const {avatar} = props
     return (
         <View style={styles.headerHomePage}>
             <View style={styles.headerTop}>
-                <Image style={styles.imageAvatar} source={require('../assets/avatar4.png')}/>
+                <Image style={styles.imageAvatar} source={avatar}/>
                 <Text style={styles.dot}>...</Text>
             </View>
             <View style={styles.headerTitle}>
@@ -26,7 +27,7 @@ const Header = () => {
     )
 }
 
-export default Header
+export default HeaderFull
 
 const styles = StyleSheet.create({
     headerHomePage: {

@@ -42,18 +42,26 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         marginTop: 20,
     }, inputContainer: {
-        flexDirection: 'row', width: '90%', backgroundColor: '#F3F4F6', borderRadius: 5, paddingHorizontal: 10,
+        flexDirection: 'row',
+        width: '90%',
+        backgroundColor: '#F3F4F6',
+        borderRadius: 5,
+        paddingHorizontal: 10,
     }, input: {
         fontSize: 17,
         height: 40,
-        borderRadius: 5,
         fontWeight: '400',
         color: 'black',
         backgroundColor: '#F3F4F6',
         width: '90%',
         paddingHorizontal: 10,
-    }, iconInTextInput: {
-        fontSize: 20, fontWeight: 'bold', color: 'black', textAlign: 'center', paddingVertical: 10,
+        borderWidth: 1,
+    }, buttonInput: {
+        backgroundColor: 'transparent',
+        paddingVertical: 5,
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
     }, buttonLogin: {
         textAlign: 'center',
         backgroundColor: '#F8706E',
@@ -134,7 +142,12 @@ const styles = StyleSheet.create({
     }, textButtonCloseModal: {
         fontSize: 20, fontWeight: '500', color: 'white', textAlign: 'center',
     }, pickerGenderAndroid: {
-        width: '90%', backgroundColor: '#F3F4F6', borderRadius: 5,
+        width: '90%',
+        backgroundColor: '#F3F4F6',
+        borderRadius: 5,
+        height: 40,
+        justifyContent: 'center',
+        paddingVertical: 10,
     }, pickerGenderIOS: {
         width: '100%', backgroundColor: '#F3F4F6', borderRadius: 5,
     }, homePageContainer: {
@@ -143,6 +156,18 @@ const styles = StyleSheet.create({
         fontSize: 20, fontWeight: 'bold', color: 'black', textAlign: 'center', paddingVertical: 10,
     }, modalPickerContainer: {
         flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', alignItems: 'center', justifyContent: 'center',
-    },
+    }, inputDOB: {
+        fontSize: 17,
+        height: 40,
+        borderRadius: 5,
+        fontWeight: '400',
+        color: 'black',
+        backgroundColor: '#F3F4F6',
+        width: '90%',
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+    }, iconInTextInput: {
+        paddingVertical: 8, borderWidth: 1,
+    }
 });
 export default styles;

@@ -1,21 +1,24 @@
 import {Image, ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {AntDesign, FontAwesome5, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
+import {AntDesign, FontAwesome5, Ionicons} from '@expo/vector-icons';
 import React, {useState} from "react";
-import ModalSuccess from "../components/ModalSuccess";
 import styles from "../utils/styles";
 import {Picker} from "@react-native-picker/picker";
 import {Platform} from "expo-modules-core/src";
-
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 const SignUpScreen = ({onLogin, onSignup}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [securityPassword, setSecurityPassword] = useState(true)
+    const [securityPasswordConfirm, setSecurityPasswordConfirm] = useState(true)
     const [gender, setGender] = useState("male")
-    const [dob, setDob] = useState()
+    const [dob, setDob] = useState(new Date(1598051730000))
     const [address, setAddress] = useState('')
     const [phone, setPhone] = useState('')
     const [showModal, setShowModal] = useState(false)
+    const [show, setShow] = useState(false)
+    const [mode, setMode] = useState('date')
     const arrayGender = ['Male', 'Female', 'Other']
 
     const arraySuccess = [{
@@ -42,23 +45,54 @@ const SignUpScreen = ({onLogin, onSignup}) => {
     }]
 
     const handelSignUp = () => {
-        if (!(password === '' || confirmPassword === '' || email === '' || gender === '' || dob === '' || address === '' || phone === '')) {
-            alert('Please fill in all fields');
-        } else {
-            if (password !== confirmPassword) {
-                alert('Password and confirm password do not match')
-            } else {
-                setShowModal(true);
-                setTimeout(() => {
-                    setShowModal(false);
-                    onLogin(true);
-                }, 1000);
-            }
-        }
+        setShowModal(true);
+        setTimeout(() => {
+            setShowModal(false);
+            onLogin(true);
+        }, 1000);
+        // if (!(password === '' || confirmPassword === '' || email === '' || gender === '' || address === '' || phone === '')) {
+        //     alert('Please fill in all fields');
+        // } else {
+        //     if (password !== confirmPassword) {
+        //         alert('Password and confirm password do not match')
+        //     } else {
+        //         setShowModal(true);
+        //         setTimeout(() => {
+        //             setShowModal(false);
+        //             onLogin(true);
+        //         }, 1000);
+        //     }
+        // }
     }
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate;
+        setShow(false);
+        setDob(currentDate);
+    };
+
+    const showMode = (currentMode) => {
+        if (Platform.OS === 'android') {
+            setShow(true);
+            // for iOS, add a button that closes the picker
+        }
+        setMode(currentMode);
+    };
+
+    const showDatepicker = () => {
+        showMode('date');
+    };
 
     const handleCloseModal = () => {
         setShowModal(false)
+    }
+
+    const handleSecurityPassword = () => {
+        setSecurityPassword(!securityPassword)
+    }
+
+    const handleSecurityPasswordConfirm = () => {
+        setSecurityPasswordConfirm(!securityPasswordConfirm)
     }
 
     return (
@@ -71,23 +105,26 @@ const SignUpScreen = ({onLogin, onSignup}) => {
                 <Text style={styles.subTitleLogin}>Create an account</Text>
                 <Text style={styles.labelInput}>Email</Text>
                 <View style={styles.inputContainer}>
-                    <MaterialCommunityIcons name="email-outline" style={styles.iconInTextInput}/>
                     <TextInput value={email} onChangeText={text => setEmail(text)} placeholder='Enter email'
                                style={styles.input}></TextInput>
                 </View>
                 <Text style={styles.labelInput}>Password</Text>
                 <View style={styles.inputContainer}>
-                    <AntDesign name="lock1" style={styles.iconInTextInput}/>
-                    <TextInput value={password} onChangeText={text => setPassword(text)} placeholder='Enter password'
+                    <TextInput secureTextEntry={securityPassword} value={password}
+                               onChangeText={text => setPassword(text)} placeholder='Enter password'
                                style={styles.input}></TextInput>
-                    <Ionicons name="eye-off-outline" style={styles.iconInTextInput}/>
+                    <TouchableOpacity style={styles.buttonInput} onPress={handleSecurityPassword}>
+                        <Ionicons name="eye-off-outline" size={24}/>
+                    </TouchableOpacity>
                 </View>
                 <Text style={styles.labelInput}>Confirm Password</Text>
                 <View style={styles.inputContainer}>
-                    <AntDesign name="lock1" style={styles.iconInTextInput}/>
-                    <TextInput value={confirmPassword} onChangeText={text => setConfirmPassword(text)}
+                    <TextInput secureTextEntry={securityPasswordConfirm} value={confirmPassword}
+                               onChangeText={text => setConfirmPassword(text)}
                                placeholder='Enter password' style={styles.input}></TextInput>
-                    <Ionicons name="eye-off-outline" style={styles.iconInTextInput}/>
+                    <TouchableOpacity style={styles.buttonInput} onPress={handleSecurityPasswordConfirm}>
+                        <Ionicons name="eye-off-outline" size={24}/>
+                    </TouchableOpacity>
                 </View>
                 <Text style={styles.labelInput}>Gender</Text>
                 <View style={styles.inputContainer}>
@@ -111,8 +148,13 @@ const SignUpScreen = ({onLogin, onSignup}) => {
                 </View>
                 <Text style={styles.labelInput}>DOB</Text>
                 <View style={styles.inputContainer}>
-                    <TextInput value={dob} onChangeText={text => setDob(text)} placeholder='Enter dob'
-                               style={styles.input}></TextInput>
+                    <Text style={styles.inputDOB}>{dob.toLocaleDateString()}</Text>
+                    <TouchableOpacity style={styles.buttonInput} onPress={showDatepicker}>
+                        <FontAwesome5 size={24} name="calendar-alt"/>
+                    </TouchableOpacity>
+                    {show && (
+                        <RNDateTimePicker value={dob} mode={mode} display={"default"} is24Hour={"true"}
+                                          onChange={onChange}/>)}
                 </View>
                 <Text style={styles.labelInput}>Address</Text>
                 <View style={styles.inputContainer}>
@@ -151,7 +193,7 @@ const SignUpScreen = ({onLogin, onSignup}) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <ModalSuccess showModal={showModal} arraySuccess={arraySuccess} handleCloseModal={handleCloseModal}/>
+            {/*<ModalSuccess showModal={showModal} arraySuccess={arraySuccess} handleCloseModal={handleCloseModal}/>*/}
         </ScrollView>)
         ;
 }

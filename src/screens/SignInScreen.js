@@ -8,6 +8,7 @@ const SignInScreen = ({onLogin, onSignup}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showModal, setShowModal] = useState(false)
+    const [securityPassword, setSecurityPassword] = useState(true)
 
     const arraySuccess = [{
         title: 'Email: ',
@@ -30,6 +31,10 @@ const SignInScreen = ({onLogin, onSignup}) => {
         setShowModal(false)
     }
 
+    const handleSecurityPassword = () => {
+        setSecurityPassword(!securityPassword)
+    }
+
     return (
         <View style={styles.loginContainer}>
             <View style={styles.formImage}>
@@ -41,16 +46,19 @@ const SignInScreen = ({onLogin, onSignup}) => {
                 <Text style={styles.subTitleLogin}>Welcome back</Text>
                 <Text style={styles.labelInput}>Email</Text>
                 <View style={styles.inputContainer}>
-                    <MaterialCommunityIcons name="email-outline" style={styles.iconInTextInput}/>
+                    <MaterialCommunityIcons size={24} name="email-outline" style={styles.buttonInput}/>
                     <TextInput value={email} onChangeText={text => setEmail(text)} placeholder='Enter email'
                                style={styles.input}></TextInput>
                 </View>
                 <Text style={styles.labelInput}>Password</Text>
                 <View style={styles.inputContainer}>
-                    <AntDesign name="lock1" style={styles.iconInTextInput}/>
-                    <TextInput secureTextEntry={true} value={password} onChangeText={text => setPassword(text)}
+                    <AntDesign size={24} name="lock1" style={styles.buttonInput}/>
+                    <TextInput secureTextEntry={securityPassword} value={password}
+                               onChangeText={text => setPassword(text)}
                                placeholder='Enter password' style={styles.input}></TextInput>
-                    <Ionicons name="eye-off-outline" style={styles.iconInTextInput}/>
+                    <TouchableOpacity style={styles.buttonInput} onPress={handleSecurityPassword}>
+                        <Ionicons size={24} name="eye-off-outline"/>
+                    </TouchableOpacity>
                 </View>
                 <TouchableOpacity onPress={() => {
                     console.log('onpress forgot password')
