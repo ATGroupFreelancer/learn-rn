@@ -1,12 +1,12 @@
 import {FlatList, View} from "react-native";
-import React from "react";
 import styles from "../utils/styles";
+import React from "react";
 import HeaderFull from "../components/HeaderFull";
-import ListItemHorizontal from "../components/ListItemHorizontal";
 import Search from "../components/Search";
+import ListItemHorizontal from "../components/ListItemHorizontal";
 import LabelItem from "../components/LabelItem";
 
-const HomeScreenFull = () => {
+const CommunityScreen = () => {
     const data = [
         {
             id: '1',
@@ -126,9 +126,11 @@ const HomeScreenFull = () => {
         },
         {id: '7', type: 'highlight', data: {title: 'Tin tức nổi bật'}},
         {
-            id: '8', type: 'popularAccounts', data: [
-                {id: 1, title: 'Andrea Sanchez', avatar: require('../assets/avatarAndrea.png')},
-                {id: 2, title: 'John Nelson', avatar: require('../assets/avatarJohn.png')},
+            id: '8', type: 'suggestedAccounts', data: [
+                {id: 1, username: 'user1'},
+                {id: 2, username: 'user2'},
+                {id: 3, username: 'user3'},
+                {id: 4, username: 'user4'},
             ]
         },
         {
@@ -193,19 +195,8 @@ const HomeScreenFull = () => {
                                             flagSeeAll={flagSeeAllNew} flagNext={true}/>
                     </View>
                 )
-            case 'popularAccounts':
-                const popularData = item.data;
-                const popularName = 'Popular accounts';
-                const flagSeeAllPopular = true;
-                return (
-                    <View>
-                        <ListItemHorizontal widthItem={180} listName={popularName} data={popularData}
-                                            flagSeeAll={flagSeeAllPopular} flagNext={false}/>
-                    </View>
-                )
         }
     }
-
     return (
         <FlatList style={styles.homePageFullContainer}
                   data={data}
@@ -214,6 +205,4 @@ const HomeScreenFull = () => {
         />
     );
 }
-
-export default HomeScreenFull
-
+export default CommunityScreen;
