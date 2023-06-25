@@ -6,7 +6,7 @@ const History = () => {
         {
             id: '1',
             type: 'banner',
-            image: '../assets/imageBanner1.png',
+            image: require('../assets/imageBanner1.png'),
             title: 'Title1',
             content: 'This is a text content, This is a text content, This is a text content, ',
             dateTime: '2021-09-01'
@@ -14,7 +14,7 @@ const History = () => {
         {
             id: '2',
             type: 'banner',
-            image: '../assets/imageBanner2.png',
+            image: require('../assets/imageBanner2.png'),
             title: 'Title2',
             content: 'This is a text content This is a text content, This is a text content, ',
             dateTime: '2021-09-02'
@@ -22,7 +22,7 @@ const History = () => {
         {
             id: '3',
             type: 'banner',
-            image: '../assets/imageBanner3.png',
+            image: require('../assets/imageBanner3.png'),
             title: 'Title3',
             content: 'This is a text content,This is a text content, This is a text content,',
             dateTime: '2021-09-03'
@@ -30,7 +30,7 @@ const History = () => {
         {
             id: '4',
             type: 'banner',
-            image: '../assets/imageBanner3.png',
+            image: require('../assets/imageBanner3.png'),
             title: 'Title4',
             content: 'This is a text content,This is a text content, This is a text content,',
             dateTime: '2021-09-03'
@@ -38,7 +38,7 @@ const History = () => {
         {
             id: '5',
             type: 'banner',
-            image: '../assets/imageBanner3.png',
+            image: require('../assets/imageBanner3.png'),
             title: 'Title5',
             content: 'This is a text content,This is a text content, This is a text content,',
             dateTime: '2021-09-03'
@@ -46,7 +46,7 @@ const History = () => {
         {
             id: '6',
             type: 'banner',
-            image: '../assets/imageBanner3.png',
+            image: require('../assets/imageBanner3.png'),
             title: 'Title6',
             content: 'This is a text content,This is a text content, This is a text content,',
             dateTime: '2021-09-03'
@@ -57,7 +57,7 @@ const History = () => {
         if (item.type === 'banner') {
             return (
                 <View style={styles.historyItem}>
-                    <Image style={styles.imageHistory} source={require('../assets/imageBanner3.png')}/>
+                    <Image style={styles.imageHistory} source={item.image}/>
                     <Text style={styles.textItemTitle}>{item.title}</Text>
                     <Text style={styles.textItemContent}>{item.content}</Text>
                     <Text style={styles.textItemContent}>{item.dateTime}</Text>

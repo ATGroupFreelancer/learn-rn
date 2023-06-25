@@ -53,15 +53,13 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         color: 'black',
         backgroundColor: '#F3F4F6',
-        width: '90%',
+        width: '85%',
         paddingHorizontal: 10,
-        borderWidth: 1,
     }, buttonInput: {
         backgroundColor: 'transparent',
         paddingVertical: 5,
         height: 40,
         borderColor: 'gray',
-        borderWidth: 1,
     }, buttonLogin: {
         textAlign: 'center',
         backgroundColor: '#F8706E',
@@ -152,6 +150,8 @@ const styles = StyleSheet.create({
         width: '100%', backgroundColor: '#F3F4F6', borderRadius: 5,
     }, homePageContainer: {
         flex: 1, backgroundColor: 'transparent', marginTop: 50, width: '100%',
+    }, homePageFullContainer: {
+        flex: 1, backgroundColor: 'white', marginTop: 50, width: '100%', paddingLeft: 20,
     }, homePageTitle: {
         fontSize: 20, fontWeight: 'bold', color: 'black', textAlign: 'center', paddingVertical: 10,
     }, modalPickerContainer: {
@@ -168,6 +168,46 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
     }, iconInTextInput: {
         paddingVertical: 8, borderWidth: 1,
-    }
+    }, searchHome: {
+        fontSize: 21,
+        fontWeight: '400',
+        color: 'gray',
+    }, searchContainer: {
+        borderWidth: 1,
+        flexDirection: 'row',
+        width: '95%',
+        backgroundColor: '#FFFFFF',
+        height: 60,
+        borderRadius: 5,
+        alignItems: 'center',
+        marginVertical: 20,
+        paddingHorizontal: 20,
+        borderColor: 'gray',
+    },
+    catItem: {
+        borderRadius: 5,
+        alignItems: 'center',
+        borderWidth: 1,
+        paddingVertical: 7,
+        paddingHorizontal: 10,
+        marginRight: 5,
+        marginBottom: 5,
+    },
+    catList: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: 10,
+    }, catText: {
+        fontSize: 15,
+        fontWeight: '400',
+        color: 'black',
+        textAlign: 'center',
+    }, title: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        color: '#000',
+        paddingVertical: 10,
+    }, topComponent: {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'},
+
 });
 export default styles;

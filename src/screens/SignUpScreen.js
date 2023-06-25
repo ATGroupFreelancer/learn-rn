@@ -6,7 +6,7 @@ import {Picker} from "@react-native-picker/picker";
 import {Platform} from "expo-modules-core/src";
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
-const SignUpScreen = ({onLogin, onSignup}) => {
+const SignUpScreen = ({onLogin, onSignup, navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -175,7 +175,9 @@ const SignUpScreen = ({onLogin, onSignup}) => {
                         <Text style={styles.textTermsAndConditions}>Terms & Conditions</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={handelSignUp} style={styles.buttonLogin}>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate("Home")
+                }} style={styles.buttonLogin}>
                     <Text style={styles.textButtonLogin}>Sign up</Text>
                 </TouchableOpacity>
                 <Text style={styles.orContinueWith}>OR SIGN UP WITH</Text>
@@ -187,7 +189,7 @@ const SignUpScreen = ({onLogin, onSignup}) => {
                 <View style={styles.other}>
                     <Text style={styles.textDontHaveAnAccount}>Alrealdy have an account?</Text>
                     <TouchableOpacity onPress={() => {
-                        onSignup();
+                        navigation.navigate('SignIn')
                     }} style={styles.buttonSignUp}>
                         <Text style={styles.textButtonSignUp}>Sign in</Text>
                     </TouchableOpacity>
