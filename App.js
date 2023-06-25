@@ -1,38 +1,44 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import SignInScreen from './src/screens/SignInScreen';
-import {useState} from "react";
+import React, {useState} from "react";
 import SignUpScreen from "./src/screens/SignUpScreen";
-import HomeScreen from "./src/screens/HomeScreen";
-import HomeScreenFull from "./src/screens/HomeScreenFull";
+import BottomTabNavigator, {DashboardDetail} from "./src/components/BottomTabNavigator";
+import {NavigationContainer} from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import DashboardScreen from "./src/screens/DashboardScreen";
 
 export default function App() {
     const [showLogin, setShowLogin] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isSignedUp, setIsSignedUp] = useState(false);
 
-    const onSignup = () => {
-        setShowLogin(!showLogin);
+    const AuthenticationStack = () => {
+        return (
+            <Stack.Navigator initialRouteName={'SignInScreen'} screenOptions={{headerShown: false}}>
+                <Stack.Screen name="SignInScreen" component={SignInScreen}/>
+                <Stack.Screen name="SignUpScreen" component={SignUpScreen}/>
+            </Stack.Navigator>
+        )
     }
 
-    const handleLogin = (loginSuccessful) => {
-        setIsLoggedIn(loginSuccessful);
-    };
-
-    const handleSignup = (signupSuccessful) => {
-        setIsSignedUp(signupSuccessful);
-    };
-
-    return isLoggedIn ? (<HomeScreen/>) : isSignedUp ? (<HomeScreenFull/>) : (
-        <View style={styles.container}>
-            {!showLogin ? (<SignUpScreen onLogin={handleSignup} onSignup={onSignup}/>) : (
-                <SignInScreen onLogin={handleLogin} onSignup={onSignup}/>)}
-        </View>
-    );
+    const DashboardStack = () => {
+        return (
+            <Stack.Navigator initialRouteName={'Dashboard'} screenOptions={{headerShown: false}}>
+                <Stack.Screen name="Dashboard" component={DashboardScreen}/>
+                <Stack.Screen name="DashboardDetail" component={DashboardDetail}/>
+            </Stack.Navigator>
+        )
+    }
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName={"SignIn"} screenOptions={{headerShown: false}}>
+                {
+                    isLoggedIn
+                        ? <Stack.Screen name="AuthenStack" component={AuthenticationStack}/>
+                        : <Stack.Screen name="Main" component={BottomTabNavigator}/>
+                }
+            </Stack.Navigator>
+        </NavigationContainer>
+    )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-});
-
+const Stack = createNativeStackNavigator();

@@ -1,7 +1,7 @@
 import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 const ListItemHorizontal = (props) => {
-    const {widthItem, listName, data, flagSeeAll, flagNext} = props;
+    const {widthItem, listName, data, flagSeeAll, flagNext, navigation} = props;
 
     const dynamicStyle = StyleSheet.create({
         item: {
@@ -37,7 +37,10 @@ const ListItemHorizontal = (props) => {
 
     const renderItem = ({item}) => {
         return (
-            <TouchableOpacity style={dynamicStyle.item}>
+            // <TouchableOpacity style={StyleSheet.flatten(([ dynamicStyle.item, {  width:  }  ]))}>
+            <TouchableOpacity style={dynamicStyle.item} onPress={() => {
+                navigation.navigate("SignIn")
+            }}>
                 {item.image ? (<Image source={item.image} style={styles.image}/>) : null}
                 {item.avatar ? (<Image source={item.avatar} style={styles.popularAvatar}/>) : null}
                 <Text numberOfLines={2} style={styles.name}>{item.title}</Text>

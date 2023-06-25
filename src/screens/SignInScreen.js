@@ -4,7 +4,7 @@ import {useState} from "react";
 import ModalSuccess from "../components/ModalSuccess";
 import styles from "../utils/styles";
 
-const SignInScreen = ({onLogin, onSignup}) => {
+const SignInScreen = ({onLogin, onSignup, navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showModal, setShowModal] = useState(false)
@@ -17,15 +17,6 @@ const SignInScreen = ({onLogin, onSignup}) => {
         title: 'Password: ',
         value: password
     }]
-
-    const handleLogin = () => {
-        console.log('onpress sign in')
-        setShowModal(true);
-        setTimeout(() => {
-            setShowModal(false);
-            onLogin(true);
-        }, 1000);
-    }
 
     const handleCloseModal = () => {
         setShowModal(false)
@@ -65,7 +56,9 @@ const SignInScreen = ({onLogin, onSignup}) => {
                 }} style={styles.buttonForgotPassword}>
                     <Text style={styles.textForgotPassword}>Forgot password?</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={handleLogin} style={styles.buttonLogin}>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate("Home")
+                }} style={styles.buttonLogin}>
                     <Text style={styles.textButtonLogin}>Sign in</Text>
                 </TouchableOpacity>
                 <Text style={styles.orContinueWith}>OR COUNTINUE WITH</Text>
@@ -77,7 +70,7 @@ const SignInScreen = ({onLogin, onSignup}) => {
                 <View style={styles.other}>
                     <Text style={styles.textDontHaveAnAccount}>Don't have an account?</Text>
                     <TouchableOpacity onPress={() => {
-                        onSignup()
+                        navigation.navigate("SignUp")
                     }} style={styles.buttonSignUp}>
                         <Text style={styles.textButtonSignUp}>Sign up</Text>
                     </TouchableOpacity>

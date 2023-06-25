@@ -1,34 +1,38 @@
 import React from 'react';
+import {View} from 'react-native';
+
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Ionicons} from '@expo/vector-icons'; // Đảm bảo bạn đã cài đặt thư viện expo-vector-icons
-import CommunityScreen from '../screens/CommunityScreen';
-import PortfolioScreen from '../screens/PortfolioScreen';
-import ExploreScreen from '../screens/ExploreScreen';
+import DashboardScreen from "../screens/DashboardScreen";
+import BoardScreen from "../screens/BoardScreen";
+import TeamScreen from "../screens/TeamScreen";
+import SettingsScreen from "../screens/SettingsScreen";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+export const DashboardDetail = () => {
+    return (
+        <View/>
+    )
+}
+
+const DashboardStack = () => {
+    return (
+        <Stack.Navigator initialRouteName={'Dashboard'} screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Dashboard" component={DashboardScreen}/>
+            <Stack.Screen name="DashboardDetail" component={DashboardDetail}/>
+        </Stack.Navigator>
+    )
+}
 
 const BottomTabNavigator = () => {
     return (
-        <Tab.Navigator
-            screenOptions={({route}) => ({
-                tabBarIcon: ({color, size}) => {
-                    let iconName;
-
-                    if (route.name === 'Community') {
-                        iconName = 'people-outline';
-                    } else if (route.name === 'Portfolio') {
-                        iconName = 'briefcase-outline';
-                    } else if (route.name === 'Explore') {
-                        iconName = 'search-outline';
-                    }
-
-                    return <Ionicons name={iconName} size={size} color={color}/>;
-                },
-            })}
-        >
-            <Tab.Screen name="Community" component={CommunityScreen}/>
-            <Tab.Screen name="Portfolio" component={PortfolioScreen}/>
-            <Tab.Screen name="Explore" component={ExploreScreen}/>
+        <Tab.Navigator screenOptions={{headerShown: false}} initialRouteName={'Dashboard'}>
+            <Tab.Screen name="Dashboard" component={DashboardScreen}/>
+            <Tab.Screen name="Board" component={BoardScreen}/>
+            <Tab.Screen name="Team" component={TeamScreen}/>
+            <Tab.Screen name="Settings" component={SettingsScreen}/>
         </Tab.Navigator>
     );
 };

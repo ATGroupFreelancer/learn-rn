@@ -5,8 +5,9 @@ import HeaderFull from "../components/HeaderFull";
 import Search from "../components/Search";
 import ListItemHorizontal from "../components/ListItemHorizontal";
 import LabelItem from "../components/LabelItem";
+import {StatusBar} from "expo-status-bar";
 
-const CommunityScreen = () => {
+const CommunityScreen = ({navigation}) => {
     const data = [
         {
             id: '1',
@@ -191,18 +192,22 @@ const CommunityScreen = () => {
                 const flagSeeAllNew = true;
                 return (
                     <View>
-                        <ListItemHorizontal widthItem={170} listName={newsName} data={newsData}
+                        <ListItemHorizontal navigation={navigation} widthItem={170} listName={newsName} data={newsData}
                                             flagSeeAll={flagSeeAllNew} flagNext={true}/>
                     </View>
                 )
         }
     }
     return (
-        <FlatList style={styles.homePageFullContainer}
-                  data={data}
-                  keyExtractor={(item) => item.id}
-                  renderItem={renderItem}
-        />
+        <>
+            <StatusBar style="auto"/>
+            <FlatList style={styles.homePageFullContainer}
+                      data={data}
+                      keyExtractor={(item) => item.id}
+                      renderItem={renderItem}
+            />
+        </>
     );
 }
+
 export default CommunityScreen;
