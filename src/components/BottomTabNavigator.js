@@ -7,6 +7,7 @@ import BoardScreen from "../screens/BoardScreen";
 import TeamScreen from "../screens/TeamScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -27,12 +28,30 @@ const DashboardStack = () => {
 }
 
 const BottomTabNavigator = () => {
+
     return (
         <Tab.Navigator screenOptions={{headerShown: false}} initialRouteName={'Dashboard'}>
-            <Tab.Screen name="Dashboard" component={DashboardScreen}/>
-            <Tab.Screen name="Board" component={BoardScreen}/>
-            <Tab.Screen name="Team" component={TeamScreen}/>
-            <Tab.Screen name="Settings" component={SettingsScreen}/>
+            <Tab.Screen name="Dashboard" component={DashboardScreen} options={{
+                tabBarIcon: ({color, size}) => (
+                    <Icon name="dashboard" color={color} size={size}/>
+                ),
+            }}/>
+            <Tab.Screen name="Board" component={BoardScreen} options={{
+                tabBarIcon: ({color, size}) => (
+                    <Icon name="clipboard" color={color} size={size}/>
+                ),
+            }}/>
+            <Tab.Screen name="Team" component={TeamScreen} options={{
+                tabBarIcon: ({color, size}) => (
+                    <Icon name="users" color={color} size={size}/>
+                ),
+            }}
+            />
+            <Tab.Screen name="Settings" component={SettingsScreen} options={{
+                tabBarIcon: ({color, size}) => (
+                    <Icon name="cog" color={color} size={size}/>
+                ),
+            }}/>
         </Tab.Navigator>
     );
 };
