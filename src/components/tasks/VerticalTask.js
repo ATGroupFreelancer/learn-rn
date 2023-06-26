@@ -1,9 +1,17 @@
-import {Dimensions, StyleSheet, Text, View} from "react-native";
+import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Task from "./Task";
+import {AntDesign} from "@expo/vector-icons";
 
 const VerticalTask = (props) => {
     const {title, data} = props;
-    let numTasks = data.length - 1;
+
+    let num = 0;
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].status === title) {
+            num++;
+        }
+    }
+    const numTasks = num;
     return (
         <View style={styles.viewContainer}>
             <View style={styles.viewTaskTitle}>
@@ -17,6 +25,10 @@ const VerticalTask = (props) => {
                     </View>
                 )
             })}
+            <TouchableOpacity style={styles.viewAddTask}>
+                <AntDesign style={styles.iconPlus} name="plus" size={24} color="black"/>
+                <Text style={styles.textAddTask}> Add a card</Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -59,5 +71,25 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: 'black',
         marginLeft: 8,
+    },
+    viewAddTask: {
+        flexDirection: 'row',
+        backgroundColor: '#FEF1F1',
+        width: '90%',
+        height: 40,
+        borderRadius: 16,
+        marginVertical: 8,
+        marginLeft: 16,
+        paddingHorizontal: 8,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    textAddTask: {
+        fontSize: 16,
+        fontWeight: '700',
+        color: '#F87B79',
+    },
+    iconPlus: {
+        color: '#F87B79',
     }
 });

@@ -5,6 +5,8 @@ import {faker} from "@faker-js/faker";
 import HorizontalTask from "../components/tasks/HorizontalTask";
 
 const BoardScreen = () => {
+    const [valueSearch, setValueSearch] = useState('');
+
     const users = [];
     for (let i = 0; i < 10; i++) {
         const user = {
