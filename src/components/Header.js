@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        paddingRight: 16,
+        // paddingRight: 16,
         backgroundColor: '#fff',
         borderBottomColor: '#ddd',
         width: '100%',
