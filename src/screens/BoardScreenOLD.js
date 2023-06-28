@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import {FlatList, StyleSheet, View} from "react-native";
 import {faker} from "@faker-js/faker";
 import HorizontalTask from "../components/tasks/HorizontalTask";
-import store from "../redux/redux";
 
 const BoardScreen = () => {
     const [valueSearch, setValueSearch] = useState('');
@@ -33,8 +32,6 @@ const BoardScreen = () => {
             component: 'Task',
         }
     ]
-
-    console.log(store.getState())
 
     const renderComponent = ({item}) => {
         switch (item.type) {
@@ -66,7 +63,7 @@ export default BoardScreen;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        paddingHorizontal: 16,
+        paddingLeft: 16,
         width: '100%',
     },
     boardContainer: {

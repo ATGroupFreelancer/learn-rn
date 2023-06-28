@@ -1,13 +1,12 @@
-import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Task from "./Task";
 import {AntDesign} from "@expo/vector-icons";
 
 const VerticalTask = (props) => {
-    const {title, data} = props;
-
+    const {titleInfo, data} = props;
     let num = 0;
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].status === title) {
+    for (const element of data) {
+        if (element.status === titleInfo.type) {
             num++;
         }
     }
@@ -15,7 +14,7 @@ const VerticalTask = (props) => {
     return (
         <View style={styles.viewContainer}>
             <View style={styles.viewTaskTitle}>
-                <Text style={styles.textTaskTitle}>{title}</Text>
+                <Text style={styles.textTaskTitle}>{titleInfo.title}</Text>
                 <Text style={styles.textNumTasks}>{numTasks}</Text>
             </View>
             {data.map((task, key) => {
@@ -37,7 +36,7 @@ export default VerticalTask;
 const styles = StyleSheet.create({
     viewContainer: {
         backgroundColor: '#FEF1F1',
-        width: Dimensions.get('window').width * 0.76,
+        width: '100%',
         flexDirection: 'column',
         alignItems: 'flex-start',
         paddingVertical: 8,
