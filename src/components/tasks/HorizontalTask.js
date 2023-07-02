@@ -1,10 +1,13 @@
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import React, {useState} from "react";
 import VerticalTask from "./VerticalTask";
-import store from "../../redux/redux";
+import {useDispatch, useSelector} from 'react-redux';
+import {store} from "../../redux/store";
+import {addCardItem, addNumber} from "../../redux/actions";
 
 const HorizontalTask = (props) => {
-    const {data} = props;
+    const {tabId, navigation, data} = props;
+    const dispatch = useDispatch();
 
     const category = [
         {id: 0, type: 'to_do', title: 'TO DO'},
@@ -129,34 +132,42 @@ const HorizontalTask = (props) => {
     const [taskInfo, setTaskInfo] = useState(tasks);
     const [titleInfo, setTitleInfo] = useState({id: 0, type: 'to_do', title: 'TO DO'});
 
+
+    const allCard = useSelector(state => state.card.cardItems);
+    if (allCard.length < 1) {
+        category.map(item => dispatch(addCardItem(item)));
+    }
+    console.log(allCard)
     const handleCategory = (item) => {
-        store.dispatch({type: 'ADD', value: 1});
-        store.dispatch({type: 'ADD', value: 1});
-        store.dispatch({type: 'ADD', value: 1});
-        store.dispatch({type: 'ADD', value: 1});
-        store.dispatch({type: 'ERR'});
-        console.log(store.getState());
         const task = tasks.filter(task => task.status === item.type);
         setTaskInfo(task);
         setTitleInfo(item);
     }
 
+    const renderItem = ({item}) => {
+        return (
+            <TouchableOpacity
+                style={[styles.buttonCategory, item.type === titleInfo.type && {
+                    borderColor: '#FEF1F1', backgroundColor: '#FEF1F1'
+                }]}
+                onPress={() => {
+                    handleCategory(item)
+                }}>
+                <Text style={styles.textCategory}>{item.title}</Text>
+            </TouchableOpacity>)
+    }
+
     return (
         <View>
-            <View style={styles.viewCategory}>
-                {category.map((item, key) => {
-                    return (
-                        <TouchableOpacity style={styles.buttonCategory} key={key}
-                                          onPress={() => {
-                                              handleCategory(item)
-                                          }}>
-                            <Text style={styles.textCategory}>{item.title}</Text>
-                        </TouchableOpacity>
-                    )
-                })}
-            </View>
+            {tabId === 'Board' ?
+                <FlatList data={category}
+                          renderItem={renderItem}
+                          keyExtractor={item => item.id}
+                          horizontal={true}
+                          showsHorizontalScrollIndicator={false}/>
+                : null}
             <View style={styles.viewVerticalTask}>
-                <VerticalTask titleInfo={titleInfo} data={taskInfo}/>
+                <VerticalTask navigation={navigation} titleInfo={titleInfo} data={taskInfo}/>
             </View>
         </View>
     )
@@ -169,21 +180,21 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     buttonCategory: {
-        // backgroundColor: '#0874C6',
         backgroundColor: 'white',
         height: 36,
-        width: '24%',
+        width: 120,
+        marginRight: 16,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
         borderColor: '#0874C6',
         borderWidth: 1,
+        marginVertical: 16,
     },
     viewCategory: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginVertical: 10,
     },
     textCategory: {
         color: '#0874C6',
@@ -192,5 +203,6 @@ const styles = StyleSheet.create({
     },
     viewVerticalTask: {
         flex: 1,
+        marginTop: 16,
     }
 });

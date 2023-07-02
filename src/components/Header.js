@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F3F4F6',
         borderRadius: 8,
         paddingHorizontal: 8,
-        marginVertical: 4,
+        marginTop: 8,
         paddingVertical: 4,
     },
     imageUserInProject: {

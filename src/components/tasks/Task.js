@@ -2,7 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 
 const Task = (props) => {
-    const {data} = props;
+    const {data, navigation} = props;
 
     const colorPriorityBackground = [{
         Low: '#F0F8FE',
@@ -45,7 +45,9 @@ const Task = (props) => {
     }
 
     return (
-        <TouchableOpacity style={styles.taskContainer}>
+        <TouchableOpacity style={styles.taskContainer} onPress={
+            () => navigation.navigate('Dashboard')
+        }>
             <View style={styles.textTicket}>
                 <Text style={styles.textTicketTitle}>{data.title}</Text>
             </View>

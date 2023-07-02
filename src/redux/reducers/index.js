@@ -1,18 +1,8 @@
-// chứa các reducers trong redux.
-import {ADD_CARD_ITEM} from "../const";
+import {cardReducer} from "./card.reducer";
+import {combineReducers} from "redux";
+import {numberReducer} from "./number.reducer";
 
-const INITIAL_STATE = {
-    cardItems: []
-}
-
-const cardReducer = (state = INITIAL_STATE, action) => {
-    switch (action.type) {
-        case ADD_CARD_ITEM:
-            return {
-                ...state,
-                cardItems: [...state.cardItems, action.item]
-            }
-        default:
-            return state
-    }
-}
+export default combineReducers({
+    card: cardReducer,
+    num: numberReducer,
+});
