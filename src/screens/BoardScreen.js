@@ -3,9 +3,9 @@ import React, {useState} from "react";
 import {FlatList, StyleSheet, View} from "react-native";
 import {faker} from "@faker-js/faker";
 import HorizontalTask from "../components/tasks/HorizontalTask";
-import store from "../redux/redux";
 
-const BoardScreen = () => {
+const BoardScreen = (props) => {
+    const {navigation} = props;
     const [valueSearch, setValueSearch] = useState('');
 
     const users = [];
@@ -34,7 +34,6 @@ const BoardScreen = () => {
         }
     ]
 
-    console.log(store.getState())
 
     const renderComponent = ({item}) => {
         switch (item.type) {
@@ -48,7 +47,8 @@ const BoardScreen = () => {
                     </View>)
             case 'Body':
                 console.log('Body')
-                return (<View><HorizontalTask data={users}> </HorizontalTask></View>)
+                return (<View><HorizontalTask tabId={'Board'} navigation={navigation}
+                                              data={users}> </HorizontalTask></View>)
         }
     }
 
