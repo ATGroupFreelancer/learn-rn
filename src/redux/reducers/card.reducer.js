@@ -2,7 +2,7 @@
 import {ADD_CARD_ITEM} from "../const";
 
 const INITIAL_STATE = {
-    cardItems: [{}]
+    cardItems: []
 }
 
 export const cardReducer = (state = INITIAL_STATE, action) => {

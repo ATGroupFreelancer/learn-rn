@@ -22,7 +22,8 @@ const DashboardScreen = () => {
         users.push(user);
     }
 
-    // console.log(useSelector(state => state.card.cardItems));
+    console.log(useSelector(state => state.card.cardItems));
+    const dataTask = useSelector(state => state.card.cardItems);
 
     const listView = [
         {
@@ -49,7 +50,7 @@ const DashboardScreen = () => {
                     </View>)
             case 'Body':
                 console.log('Body')
-                return (<View><HorizontalTask tabId={'Dashboard'} data={users}> </HorizontalTask></View>)
+                return (<View><HorizontalTask tabId={'Dashboard'} data={dataTask}> </HorizontalTask></View>)
         }
     }
 
