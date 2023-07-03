@@ -3,7 +3,7 @@ import Task from "./Task";
 import {AntDesign} from "@expo/vector-icons";
 
 const VerticalTask = (props) => {
-    const {titleInfo, data, navigation} = props;
+    const {tabId, titleInfo, data, navigation} = props;
     let num = 0;
     for (const element of data) {
         if (element.status === titleInfo.type) {
@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         marginRight: 16,
         borderRadius: 16,
+        marginTop: 16,
+        borderWidth: 1,
     },
     textTaskTitle: {
         fontSize: 16,

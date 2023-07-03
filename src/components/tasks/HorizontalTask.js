@@ -2,8 +2,7 @@ import {FlatList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import React, {useState} from "react";
 import VerticalTask from "./VerticalTask";
 import {useDispatch, useSelector} from 'react-redux';
-import {store} from "../../redux/store";
-import {addCardItem, addNumber} from "../../redux/actions";
+import {addCardItem} from "../../redux/actions";
 
 const HorizontalTask = (props) => {
     const {tabId, navigation, data} = props;
@@ -134,10 +133,9 @@ const HorizontalTask = (props) => {
 
 
     const allCard = useSelector(state => state.card.cardItems);
-    if (allCard.length < 1) {
-        category.map(item => dispatch(addCardItem(item)));
+    if (allCard.length === 0) {
+        tasks.map(item => dispatch(addCardItem(item)));
     }
-    console.log(allCard)
     const handleCategory = (item) => {
         const task = tasks.filter(task => task.status === item.type);
         setTaskInfo(task);
@@ -166,9 +164,17 @@ const HorizontalTask = (props) => {
                           horizontal={true}
                           showsHorizontalScrollIndicator={false}/>
                 : null}
-            <View style={styles.viewVerticalTask}>
-                <VerticalTask navigation={navigation} titleInfo={titleInfo} data={taskInfo}/>
-            </View>
+            {tabId === 'Board' ? <View style={styles.viewVerticalTask}>
+                <VerticalTask tabId={tabId} navigation={navigation} titleInfo={titleInfo} data={taskInfo}/>
+            </View> : null}
+            {tabId === 'Dashboard' ?
+                category.map(item =>
+                    <VerticalTask tabId={tabId}
+                                  navigation={navigation}
+                                  titleInfo={item}
+                                  data={tasks.filter(task => task.status === item.type)}/>)
+                : null
+            }
         </View>
     )
 }
@@ -188,8 +194,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         borderColor: '#0874C6',
-        borderWidth: 1,
-        marginVertical: 16,
+        marginTop: 16,
     },
     viewCategory: {
         flexDirection: 'row',
@@ -203,6 +208,5 @@ const styles = StyleSheet.create({
     },
     viewVerticalTask: {
         flex: 1,
-        marginTop: 16,
     }
 });
