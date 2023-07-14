@@ -1,6 +1,8 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Task from "./Task";
 import {AntDesign} from "@expo/vector-icons";
+import {useDispatch, useSelector} from 'react-redux';
+import { useEffect } from "react";
 
 const VerticalTask = (props) => {
     const {tabId, titleInfo, data, navigation} = props;
@@ -11,6 +13,18 @@ const VerticalTask = (props) => {
         }
     }
     const numTasks = num;
+    const dispatch = useDispatch();
+
+    // useEffect(() => {
+        
+    // }, [])
+
+    const handleAddACard = () => {
+        dispatch(setListProductAction(data[0]))
+
+        console.log(useSelector(state => state.product.data.length))
+    }
+
     return (
         <View style={styles.viewContainer}>
             <View style={styles.viewTaskTitle}>
@@ -24,7 +38,9 @@ const VerticalTask = (props) => {
                     </View>
                 )
             })}
-            <TouchableOpacity style={styles.viewAddTask}>
+            <TouchableOpacity style={styles.viewAddTask} onPress={() => {
+                navigation.navigate('BoardAddACard')
+            }}>
                 <AntDesign style={styles.iconPlus} name="plus" size={24} color="black"/>
                 <Text style={styles.textAddTask}> Add a card</Text>
             </TouchableOpacity>
@@ -43,7 +59,6 @@ const styles = StyleSheet.create({
         marginRight: 16,
         borderRadius: 16,
         marginTop: 16,
-        borderWidth: 1,
     },
     textTaskTitle: {
         fontSize: 16,
