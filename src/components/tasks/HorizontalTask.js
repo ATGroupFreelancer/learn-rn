@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import VerticalTask from "./VerticalTask";
 import {useDispatch, useSelector} from 'react-redux';
 import {addCardItem} from "../../redux/actions";
+import {faker} from "@faker-js/faker";
 
 const HorizontalTask = (props) => {
     const {tabId, navigation, data} = props;
@@ -128,16 +129,16 @@ const HorizontalTask = (props) => {
         },
     ];
 
-    const [taskInfo, setTaskInfo] = useState(tasks);
+    const [taskInfo, setTaskInfo] = useState(data);
     const [titleInfo, setTitleInfo] = useState({id: 0, type: 'to_do', title: 'TO DO'});
 
 
     const allCard = useSelector(state => state.card.cardItems);
     if (allCard.length === 0) {
-        tasks.map(item => dispatch(addCardItem(item)));
+        data.map(item => dispatch(addCardItem(item)));
     }
     const handleCategory = (item) => {
-        const task = tasks.filter(task => task.status === item.type);
+        const task = data.filter(task => task.status === item.type);
         setTaskInfo(task);
         setTitleInfo(item);
     }
@@ -172,7 +173,7 @@ const HorizontalTask = (props) => {
                     <VerticalTask tabId={tabId}
                                   navigation={navigation}
                                   titleInfo={item}
-                                  data={tasks.filter(task => task.status === item.type)}/>)
+                                  data={data.filter(task => task.status === item.type)}/>)
                 : null
             }
         </View>

@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {FlatList, StyleSheet, View} from "react-native";
 import Header from "../components/Header";
 import HorizontalTask from "../components/tasks/HorizontalTask";
 import {faker} from "@faker-js/faker";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import { fetchListProductAction } from "../redux/actions";
 
 const DashboardScreen = () => {
     const [valueSearch, setValueSearch] = useState('');
@@ -21,9 +22,15 @@ const DashboardScreen = () => {
         }
         users.push(user);
     }
-
-    console.log(useSelector(state => state.card.cardItems));
+    const dispatch = useDispatch();
     const dataTask = useSelector(state => state.card.cardItems);
+
+    useEffect(() => {
+            dispatch(fetchListProductAction());
+        } , [])
+
+    const productList = useSelector(state => state.product.data)
+    // console.log(useSelector(state => state.product.data));
 
     const listView = [
         {
@@ -50,7 +57,7 @@ const DashboardScreen = () => {
                     </View>)
             case 'Body':
                 console.log('Body')
-                return (<View><HorizontalTask tabId={'Dashboard'} data={dataTask}> </HorizontalTask></View>)
+                return (<View><HorizontalTask tabId={'Dashboard'} data={productList}> </HorizontalTask></View>)
         }
     }
 
@@ -59,6 +66,7 @@ const DashboardScreen = () => {
                   data={listView}
                   renderItem={renderComponent}
                   keyExtractor={item => item.id}
+                  extraData={listView}
             // bounces={Platform.OS === 'ios' ? false : null}
         />
     )
