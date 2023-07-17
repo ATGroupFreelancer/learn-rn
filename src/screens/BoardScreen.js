@@ -3,13 +3,11 @@ import React, {useState} from "react";
 import {FlatList, StyleSheet, View} from "react-native";
 import {faker} from "@faker-js/faker";
 import HorizontalTask from "../components/tasks/HorizontalTask";
-import { useDispatch, useSelector } from "react-redux";
 const BoardScreen = (props) => {
     const {navigation} = props;
     const [valueSearch, setValueSearch] = useState('');
 
     const users = [];
-    const dispatch = useDispatch();
     for (let i = 0; i < 10; i++) {
         const user = {
             user_id: i + 1,
@@ -22,7 +20,6 @@ const BoardScreen = (props) => {
         users.push(user);
     }
 
-    const productList = useSelector(state=> state.product.data)
     const listView = [
         {
             id: 1,
@@ -50,7 +47,7 @@ const BoardScreen = (props) => {
             case 'Body':
                 console.log('Body')
                 return (<View><HorizontalTask tabId={'Board'} navigation={navigation}
-                                              data={productList}> </HorizontalTask></View>)
+                                              data={[]}> </HorizontalTask></View>)
         }
     }
 

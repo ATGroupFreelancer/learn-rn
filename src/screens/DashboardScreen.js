@@ -3,10 +3,12 @@ import {FlatList, StyleSheet, View} from "react-native";
 import Header from "../components/Header";
 import HorizontalTask from "../components/tasks/HorizontalTask";
 import {faker} from "@faker-js/faker";
-import {useSelector, useDispatch} from "react-redux";
-import { fetchListProductAction } from "../redux/actions";
+import {myTimer} from "../store"
+import {observer} from "mobx-react";
+import {productStore} from "../store/product.store";
+import {getListProduct} from "../services";
 
-const DashboardScreen = () => {
+const DashboardScreen = observer(() => {
     const [valueSearch, setValueSearch] = useState('');
     const [isShowHeader, setIsShowHeader] = useState(true);
 
@@ -22,16 +24,26 @@ const DashboardScreen = () => {
         }
         users.push(user);
     }
-    const dispatch = useDispatch();
-    const dataTask = useSelector(state => state.card.cardItems);
 
     useEffect(() => {
-            dispatch(fetchListProductAction());
-        } , [])
+        getListProduct().then( data => {
+            productStore.setProductList(data.data);
+            // console.log(productStore.productList)
+            productStore.addProduct(data.data[0])
+            console.log('pl: ',productStore.productList.length)
 
-    const productList = useSelector(state => state.product.data)
-    // console.log(useSelector(state => state.product.data));
+            productStore.addProduct(data.data[2])
+        })
 
+        myTimer.reset();
+        console.log('secondsPassed', myTimer.secondsPassed);
+        myTimer.increase(10);
+        console.log('secondsPassed', myTimer.secondsPassed);
+        console.log('secondsPassed', myTimer.doubleSecond);
+
+    }, [])
+
+    console.log('fp', productStore.filteredProduct.length);
     const listView = [
         {
             id: 1,
@@ -57,7 +69,7 @@ const DashboardScreen = () => {
                     </View>)
             case 'Body':
                 console.log('Body')
-                return (<View><HorizontalTask tabId={'Dashboard'} data={productList}> </HorizontalTask></View>)
+                return (<View><HorizontalTask tabId={'Dashboard'} data={productStore.productList}> </HorizontalTask></View>)
         }
     }
 
@@ -70,7 +82,7 @@ const DashboardScreen = () => {
             // bounces={Platform.OS === 'ios' ? false : null}
         />
     )
-}
+})
 export default DashboardScreen;
 
 const styles = StyleSheet.create({

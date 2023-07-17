@@ -1,7 +1,6 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Task from "./Task";
 import {AntDesign} from "@expo/vector-icons";
-import {useDispatch, useSelector} from 'react-redux';
 import { useEffect } from "react";
 
 const VerticalTask = (props) => {
@@ -13,16 +12,14 @@ const VerticalTask = (props) => {
         }
     }
     const numTasks = num;
-    const dispatch = useDispatch();
 
     // useEffect(() => {
         
     // }, [])
 
     const handleAddACard = () => {
-        dispatch(setListProductAction(data[0]))
 
-        console.log(useSelector(state => state.product.data.length))
+        // console.log(useSelector(state => state.product.data.length))
     }
 
     return (

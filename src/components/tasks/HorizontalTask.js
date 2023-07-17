@@ -1,13 +1,10 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import React, {useState} from "react";
 import VerticalTask from "./VerticalTask";
-import {useDispatch, useSelector} from 'react-redux';
-import {addCardItem} from "../../redux/actions";
 import {faker} from "@faker-js/faker";
 
 const HorizontalTask = (props) => {
     const {tabId, navigation, data} = props;
-    const dispatch = useDispatch();
 
     const category = [
         {id: 0, type: 'to_do', title: 'TO DO'},
@@ -132,11 +129,6 @@ const HorizontalTask = (props) => {
     const [taskInfo, setTaskInfo] = useState(data);
     const [titleInfo, setTitleInfo] = useState({id: 0, type: 'to_do', title: 'TO DO'});
 
-
-    const allCard = useSelector(state => state.card.cardItems);
-    if (allCard.length === 0) {
-        data.map(item => dispatch(addCardItem(item)));
-    }
     const handleCategory = (item) => {
         const task = data.filter(task => task.status === item.type);
         setTaskInfo(task);
